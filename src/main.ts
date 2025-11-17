@@ -20,6 +20,7 @@ async function bootstrap() {
     .setDescription('Description')
     .setVersion('1.0')
     .addTag('demo')
+    .addBearerAuth()
     .build();
 
   const documentFactory = () => SwaggerModule.createDocument(app, config);
