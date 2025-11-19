@@ -23,8 +23,11 @@ export class UsersService {
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
-  async findAll(): Promise<User[]> {
-    const users = await this.userRepository.find();
+  async findAll(limit?: number, offset?: number): Promise<User[]> {
+    const users = await this.userRepository.find({
+      skip: offset || 0,
+      take: limit || 10,
+    });
     return users.map((user) => new User(user));
   }
 

@@ -1,7 +1,15 @@
-import { Controller, Get, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiOkResponse } from '@nestjs/swagger';
+import { ApiOkResponse, ApiQuery } from '@nestjs/swagger';
 import { User } from './entities/user.entity';
 import { ParseUUIDPipe } from '@nestjs/common';
 
@@ -11,8 +19,10 @@ export class UsersController {
 
   @Get()
   @ApiOkResponse({ type: User, isArray: true })
-  findAll() {
-    return this.usersService.findAll();
+  @ApiQuery({ name: 'limit', required: false })
+  @ApiQuery({ name: 'offset', required: false })
+  findAll(@Query('limit') limit?: number, @Query('offset') offset?: number) {
+    return this.usersService.findAll(limit, offset);
   }
 
   @Get(':id')

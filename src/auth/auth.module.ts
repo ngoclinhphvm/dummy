@@ -19,7 +19,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
           global: true,
           secret: jwt.secret,
           signOptions: {
-            expiresIn: '24h',
+            expiresIn: '1h',
           },
         };
       },
